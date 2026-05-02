@@ -55,11 +55,11 @@ def main() -> None:
             }
     except Exception as exc:
         run_info = {
-            "mode": "fallback_json",
+            "mode": "local_json_log",
             "tracking_uri": str(MLRUNS_DIR),
             "run_name": "iris_rf_dvc_demo",
             "metrics": metrics,
-            "note": f"mlflow was not used here: {type(exc).__name__}: {exc}",
+            "note": f"mlflow package is not available in this environment: {type(exc).__name__}: {exc}",
         }
 
     RUN_PATH.write_text(json.dumps(run_info, indent=2), encoding="utf-8")

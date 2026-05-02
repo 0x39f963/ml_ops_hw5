@@ -11,5 +11,6 @@
   "frame_count": 204,
   "processed_frames": 204,
   "frames_with_faces": 204,
-  "total_faces": 435
+  "total_faces": 435,
+  "blur_pixel_size": 72
 }

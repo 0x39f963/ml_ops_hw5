@@ -1,5 +1,5 @@
 {
-  "mode": "fallback_json",
+  "mode": "local_json_log",
   "tracking_uri": "/home/x39963/web/niki/mo-dz/DP/HomeWork_5_ML_Ops_Novik_F1/mlruns",
   "run_name": "iris_rf_dvc_demo",
   "metrics": {
@@ -9,5 +9,5 @@
     "seed": 42,
     "model": "RandomForestClassifier"
   },
-  "note": "mlflow was not used here: ModuleNotFoundError: No module named 'mlflow'"
+  "note": "mlflow package is not available in this environment: ModuleNotFoundError: No module named 'mlflow'"
 }

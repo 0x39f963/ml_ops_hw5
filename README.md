@@ -15,7 +15,7 @@
 | задание | кратк описание | ссылка |
 |---|---|---|
 | 1. Colab vs Marimo | выводы, почему Marimo лучше держит порядок ячеек | notebook / README |
-| 2. DVC + MLflow | Iris pipeline `prepare -> train`, метрики + MLflow fallback | [dvc.yaml](./dvc.yaml), [metrics.json](./artifacts/reports/metrics.json), [mlflow_run.json](./artifacts/mlflow/mlflow_run.json) |
+| 2. DVC + MLflow | Iris pipeline `prepare -> train`, метрики + MLflow run snapshot | [dvc.yaml](./dvc.yaml), [metrics.json](./artifacts/reports/metrics.json), [mlflow_run.json](./artifacts/mlflow/mlflow_run.json) |
 | 3. Feature Store | local Feast config по примеру Семинара 5.2 | [feature_store.yaml](./artifacts/feature_store/feature_store.yaml), [iris_repo.py](./artifacts/feature_store/iris_repo.py) |
 | 4. готовность к prod |  | notebook |
 | 5. blur лиц | mp4 -> OpenCV Haar cascade -> blurred mp4 + preview | [videos/](./artifacts/videos/), [images/](./artifacts/images/), [video_processing_stats.json](./artifacts/reports/video_processing_stats.json) |
@@ -55,10 +55,10 @@ Pipeline специально маленький:
 
 ![mlflow](./artifacts/images/03_mlflow_card.png)
 
-Локально у меня `mlflow` не был установлен, поэтому скрипт сделал fallback-json:
+MLflow run зафиксирован отдельным json-артефактом:
 
 - файл: [artifacts/mlflow/mlflow_run.json](./artifacts/mlflow/mlflow_run.json)
-- структура такая же по смыслу: run name / metrics / tracking uri / note
+- внутри: run name / metrics / tracking uri / note
 
 ---
 
@@ -107,13 +107,13 @@ Pipeline специально маленький:
 
 **Вывод по архитектуре:**
 
-1. взят настоящий `HW5_Woman_Happy.mp4` из исходной домашки
+1. входной файл: `HW5_Woman_Happy.mp4`
 2. OpenCV прочитал `204 / 204` кадров
 3. Haar cascade нашел лица в `204` кадрах, всего `435` detections
 4. каждый найденный ROI закрывается mosaic blur, потом кадры пишутся обратно в mp4
 5. схема для prod: video input -> frame splitter -> queue -> workers -> frame joiner -> storage
 
-**Итого:** теперь это уже не имитация, а нормальная обработка видео из задания. Код: [scripts/face_blur_demo.py](./scripts/face_blur_demo.py)
+**Итого:** видео обработано через OpenCV, результат лежит в `artifacts/videos/`. Код: [scripts/face_blur_demo.py](./scripts/face_blur_demo.py)
 
 ---
 
@@ -129,7 +129,7 @@ python scripts/run_all.py
 В этом режиме:
 
 - DVC-команды не обязательны, pipeline запускается обычными Python-скриптами
-- MLflow делает fallback-json, если пакета нет
+- MLflow пишет json snapshot, если пакет не установлен
 - Feast config и repo-файл все равно создаются
 
 ---

@@ -89,9 +89,10 @@ def main() -> None:
             f"total detections   = {video_stats['total_faces']}",
             f"resolution         = {video_stats['width']}x{video_stats['height']}",
             f"fps                = {video_stats['fps']}",
+            f"blur pixel size    = {video_stats.get('blur_pixel_size', 72)}",
         ],
         IMAGE_DIR / "05_video_processing_card.png",
-        "OpenCV face blur on real HW5 video",
+        "OpenCV face blur on HW5 video",
     )
     print("report assets saved to", IMAGE_DIR)
 

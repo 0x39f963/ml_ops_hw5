@@ -37,14 +37,16 @@ def download_video() -> None:
         raise RuntimeError(f"Video was not downloaded correctly: {INPUT_VIDEO}")
 
 
-def mosaic_roi(face_roi: np.ndarray, pixel_size: int = 24) -> np.ndarray:
+def mosaic_roi(face_roi: np.ndarray, pixel_size: int = 72) -> np.ndarray:
     h, w = face_roi.shape[:2]
     if h == 0 or w == 0:
         return face_roi
     small_w = max(1, w // pixel_size)
     small_h = max(1, h // pixel_size)
+    face_roi = cv2.GaussianBlur(face_roi, (99, 99), 0)
     small = cv2.resize(face_roi, (small_w, small_h), interpolation=cv2.INTER_LINEAR)
-    return cv2.resize(small, (w, h), interpolation=cv2.INTER_NEAREST)
+    mosaiced = cv2.resize(small, (w, h), interpolation=cv2.INTER_NEAREST)
+    return cv2.GaussianBlur(mosaiced, (51, 51), 0)
 
 
 def detect_faces(gray_frame: np.ndarray, cascade: cv2.CascadeClassifier) -> list[tuple[int, int, int, int]]:
@@ -118,16 +120,15 @@ def process_video() -> dict[str, int | float]:
             total_faces += len(faces)
 
         for x, y, w, h in faces:
-            pad_x = int(w * 0.08)
-            pad_y = int(h * 0.12)
+            pad_x = int(w * 0.18)
+            pad_y = int(h * 0.24)
             x1 = max(0, x - pad_x)
             y1 = max(0, y - pad_y)
             x2 = min(width, x + w + pad_x)
             y2 = min(height, y + h + pad_y)
 
             roi = out[y1:y2, x1:x2]
-            out[y1:y2, x1:x2] = mosaic_roi(roi, pixel_size=18)
-            cv2.rectangle(out, (x1, y1), (x2, y2), (35, 170, 95), 2)
+            out[y1:y2, x1:x2] = mosaic_roi(roi, pixel_size=72)
 
         if processed % preview_every == 0 and len(input_preview_frames) < 12:
             input_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -162,6 +163,7 @@ def process_video() -> dict[str, int | float]:
         "processed_frames": processed,
         "frames_with_faces": frames_with_faces,
         "total_faces": total_faces,
+        "blur_pixel_size": 72,
     }
 
 
