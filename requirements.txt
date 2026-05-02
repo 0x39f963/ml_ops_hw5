@@ -1,0 +1,16 @@
+pandas
+numpy
+scikit-learn
+joblib
+pyyaml
+matplotlib
+pillow
+pyarrow
+opencv-python-headless
+gdown
+imageio
+mlflow
+dvc
+feast
+diagrams
+graphviz

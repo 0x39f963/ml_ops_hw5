@@ -1,0 +1,13 @@
+{
+  "mode": "fallback_json",
+  "tracking_uri": "/home/x39963/web/niki/mo-dz/DP/HomeWork_5_ML_Ops_Novik_F1/mlruns",
+  "run_name": "iris_rf_dvc_demo",
+  "metrics": {
+    "accuracy": 0.9474,
+    "f1_macro": 0.9466,
+    "test_rows": 38,
+    "seed": 42,
+    "model": "RandomForestClassifier"
+  },
+  "note": "mlflow was not used here: ModuleNotFoundError: No module named 'mlflow'"
+}

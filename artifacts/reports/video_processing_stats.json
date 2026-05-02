@@ -1,0 +1,15 @@
+{
+  "source": "artifacts/videos/HW5_Woman_Happy.mp4",
+  "result": "artifacts/videos/HW5_Woman_Happy_blurred.mp4",
+  "preview_input": "artifacts/images/video_input_preview.gif",
+  "preview_blurred": "artifacts/images/video_blurred_preview.gif",
+  "frame_before": "artifacts/images/video_frame_before.jpg",
+  "frame_after": "artifacts/images/video_frame_after.jpg",
+  "fps": 25.0,
+  "width": 3840,
+  "height": 2160,
+  "frame_count": 204,
+  "processed_frames": 204,
+  "frames_with_faces": 204,
+  "total_faces": 435
+}

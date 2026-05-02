@@ -1,0 +1,41 @@
+stages:
+  prepare:
+    cmd: python scripts/prepare_data.py
+    deps:
+      - scripts/prepare_data.py
+    outs:
+      - data/raw/iris.csv
+      - data/processed/iris_clean.csv
+
+  train:
+    cmd: python scripts/train_model.py
+    deps:
+      - data/processed/iris_clean.csv
+      - scripts/train_model.py
+    outs:
+      - models/iris_rf.joblib
+    metrics:
+      - artifacts/reports/metrics.json
+
+  feature_store:
+    cmd: python scripts/build_feature_store.py
+    deps:
+      - data/processed/iris_clean.csv
+      - scripts/build_feature_store.py
+    outs:
+      - artifacts/feature_store/feature_store.yaml
+      - artifacts/feature_store/iris_repo.py
+
+  media:
+    cmd: python scripts/face_blur_demo.py
+    deps:
+      - scripts/face_blur_demo.py
+    outs:
+      - artifacts/videos/HW5_Woman_Happy.mp4
+      - artifacts/videos/HW5_Woman_Happy_blurred.mp4
+      - artifacts/images/video_input_preview.gif
+      - artifacts/images/video_blurred_preview.gif
+      - artifacts/images/video_frame_before.jpg
+      - artifacts/images/video_frame_after.jpg
+      - artifacts/images/face_blur_ml_system.png
+      - artifacts/reports/video_processing_stats.json

@@ -1,0 +1,16 @@
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+
+data/raw/*.csv
+data/processed/*.csv
+models/*.joblib
+mlruns/
+.dvc/cache/
+.dvc/tmp/
+artifacts/feature_store/*.parquet
+
+*.pyc
+*.log
+
+hw5_workspace/

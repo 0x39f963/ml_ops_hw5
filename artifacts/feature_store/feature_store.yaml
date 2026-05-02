@@ -1,0 +1,12 @@
+project: hw5_iris
+project_description: >
+  HW5 demo feature store for Iris model.
+  Local-вариант из семинара: registry в файле + sqlite online store.
+registry: data/registry.db
+provider: local
+online_store:
+    type: sqlite
+    path: data/online_store.db
+entity_key_serialization_version: 3
+auth:
+    type: no_auth
